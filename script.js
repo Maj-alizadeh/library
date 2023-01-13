@@ -9,11 +9,12 @@ function Book(title, author, pages, read) {
 Book.prototype.display = function () {
   return `${this.title} <br> ${this.author} <br> ${this.pages} <br> ${this.read}`;
 };
-
+// add book to mylibrary array
 function addBookToLibrary(newBook) {
   myLibrary.push(newBook);
 }
 
+// create a card for each book
 function displayBook() {
   for (let i = 0; i < myLibrary.length; i++) {
     const card = document.createElement('div');
@@ -29,5 +30,3 @@ const book3 = new Book('The Hobbit3', 'Tolkin', 195, 'has read');
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
-
-// displayBook();

@@ -40,7 +40,16 @@ function addReadStatusButton(i) {
 // change read status
 function changeReadStatus(e) {
   const { index } = e.target.dataset;
-  myLibrary[index].read = 'Read';
+  const { read } = myLibrary[index];
+  switch (read) {
+    case 'Read':
+      myLibrary[index].read = 'Not Read';
+      break;
+    case 'Not Read':
+      myLibrary[index].read = 'Read';
+      break;
+    default: myLibrary[index].read = '';
+  }
   displayBook();
 }
 

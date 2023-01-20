@@ -40,7 +40,8 @@ function addReadStatusButton(i) {
 // change read status
 function changeReadStatus(e) {
   const { index } = e.target.dataset;
-  // myLibrary[index].read = 'Not Read';
+  myLibrary[index].read = 'Read';
+  displayBook();
 }
 
 // delete book card

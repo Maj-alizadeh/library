@@ -7,21 +7,36 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 
 .book-card {
-    border: 1px solid black;
+    /* border: 1px solid #94a3b8; */
+    background-color: #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px #475569;
     padding: 10px;
-    width: 100px;
+    width: 200px;
+    height: 250px;
+    font: inherit;
     margin: 10px;
 }
-
+.heading {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30em;
+    height: 15vh;
+}
+.heading h1 {
+    font-size: 3em;
+}
 .add-book-button {
-    margin: 1em 33.5em;
-    padding: 10px 20px;
-    background-color: #555;
+    padding: 10px 35px;
+    background-color: #475569;
+    border-radius: 8px;
+    font-size: 1.5em;
     color: white;
     border: none;
     cursor: pointer;
@@ -30,8 +45,10 @@ body {
 .form-popup {
     display: none;
     position: fixed;
-    top: 3em;
-    right: 30em;
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+
+
     border: 3px solid #f1f1f1;
     z-index: 9;
 }   
@@ -57,7 +74,7 @@ body {
 
 .form-container button {
     width: 100%;
-    background-color: #04aa6d;
+    background-color: #94a3b8;
     color: white;
     padding: 16px 20px;
     border: none;
@@ -66,10 +83,21 @@ body {
 }
 
 
-h1 {
+.form-container h2 {
     font-weight: bold;
     font-size: 1.6em;
     margin-bottom: 10px;
+}
+
+.book-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f1f5f9;
+    height: 85vh;
+    align-items:flex-start;
+    justify-content: left;
+    padding: 20px;
+    gap: 30px;
 }
 
 

@@ -1,4 +1,5 @@
 const myLibrary = [];
+const bookCardContainer = document.querySelector('.book-card-container');
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -7,26 +8,92 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 Book.prototype.display = function () {
-  return `${this.title} <br> ${this.author} <br> ${this.pages} <br> ${this.read}`;
+  return `Title : ${this.title} <br><br> Author : ${this.author} <br><br> Pages : ${this.pages} <br><br> Read Status : ${this.read}`;
 };
-// add book to mylibrary array
-function addBookToLibrary(newBook) {
-  myLibrary.push(newBook);
+
+// create a book card
+function addCard(i, book) {
+  const card = document.createElement('div');
+  card.dataset.index = i;
+  card.classList.add('book-card');
+  card.innerHTML += book.display();
+  return card;
 }
 
-// create a card for each book
+// create delete button for each card
+function addDeleteButton(i) {
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = 'Delete';
+  deleteButton.classList.add('delete-button');
+  deleteButton.dataset.index = i;
+  return deleteButton;
+}
+
+// create read status button
+function addReadStatusButton(i) {
+  const readButton = document.createElement('button');
+  readButton.innerHTML = 'Read status';
+  readButton.classList.add('read-status-button');
+  readButton.dataset.index = i;
+  return readButton;
+}
+// change read status
+function changeReadStatus(e) {
+  const { index } = e.target.dataset;
+  // myLibrary[index].read = 'Not Read';
+}
+
+// delete book card
+function deleteCard(e) {
+  myLibrary.splice(e.target.dataset.index, 1);
+  const element = document.querySelector(`div[data-index="${e.target.dataset.index}"]`);
+  element.remove();
+}
+
+// display book card on the page
 function displayBook() {
+  bookCardContainer.innerHTML = ' ';
   for (let i = 0; i < myLibrary.length; i++) {
-    const card = document.createElement('div');
-    card.classList.add('book-card');
-    card.innerHTML += myLibrary[i].display();
-    document.body.appendChild(card);
+    const card = addCard(i, myLibrary[i]);
+    const deleteButton = addDeleteButton(i);
+    const readStatusButton = addReadStatusButton(i);
+    card.appendChild(readStatusButton);
+    card.appendChild(deleteButton);
+    bookCardContainer.appendChild(card);
+    readStatusButton.addEventListener('click', changeReadStatus);
+    deleteButton.addEventListener('click', deleteCard);
   }
 }
-const book1 = new Book('The Hobbit', 'Tolkin', 295, 'has read');
-const book2 = new Book('The Hobbit2', 'Tolkin', 395, 'has read');
-const book3 = new Book('The Hobbit3', 'Tolkin', 195, 'has read');
 
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
+// add book to mylibrary array
+function addBookToLibrary(book) {
+  myLibrary.push(book);
+  displayBook();
+}
+
+function addBookButton() {
+  document.querySelector('.form-popup').style.display = 'block';
+}
+function closeForm() {
+  document.querySelector('.form-popup').style.display = 'none';
+}
+document.querySelector('.add-book-button').addEventListener('click', addBookButton);
+document.querySelector('.close-button').addEventListener('click', closeForm);
+
+function submitBooks(event) {
+  event.preventDefault();
+  const title = document.getElementById('title').value;
+  const author = document.getElementById('author').value;
+  const pages = document.getElementById('pages').value;
+  let read = '';
+  if (document.getElementById('read').checked) {
+    read = document.getElementById('read').value;
+  } else {
+    read = document.getElementById('not-read').value;
+  }
+  const newBook = new Book(title, author, pages, read);
+  addBookToLibrary(newBook);
+}
+
+const form = document.querySelector('.form-container');
+form.addEventListener('submit', submitBooks);
